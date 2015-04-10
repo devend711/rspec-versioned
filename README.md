@@ -1,5 +1,7 @@
 # RSpec::Versioned
 
+[![Gem Version](https://badge.fury.io/rb/rspec-versioned.svg)](http://badge.fury.io/rb/rspec-versioned)
+
 Inspired by [RSpec::Retry](https://github.com/y310/rspec-retry), Rspec::Versioned allows RSpec examples and example groups to easily be repeated over different API versions using the [versioned_blocks](https://github.com/devend711/versioned_blocks) gem. Just add the `:versions` option to an example:
 
 	it 'tests multiple API versions', versions:{from:2, to:4} do |example|
