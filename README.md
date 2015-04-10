@@ -25,6 +25,8 @@ Or install it yourself as:
 
 See [versioned_blocks' documentation](https://github.com/devend711/versioned_blocks) for info about how to set a base URI and define ranges for the versions you want to test. Simply pass those options to an RSpec example group or a specific example, like this:
 
+	VersionedBlocks.base_uri = 'http://www.api.com'
+
 	it 'tests multiple API versions', versions:{from:2, to:4} do |example|
 		...
 
