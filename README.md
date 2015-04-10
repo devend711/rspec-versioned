@@ -36,7 +36,7 @@ See [versioned_blocks' documentation](https://github.com/devend711/versioned_blo
 	it 'tests a different base URI', versions:{only:1, base_uri:'http://www.api2.com'} do |example|
 		...
 
-Examples returned from the block will respond to `version.number` and a `version.uri` where `version.uri = "#{VersionedBlocks.base_uri}/v#{version.number}/"`
+Examples returned from the block will respond to `version.number` and a `version.uri` where `version.uri` will be the string `"#{VersionedBlocks.base_uri}/v#{version.number}"`
 
 Rspec::Versioned can add the version it's currently testing to RSpec's output messages. Just add this line to your RSpec config:
 
