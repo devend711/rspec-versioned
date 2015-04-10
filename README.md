@@ -26,7 +26,7 @@ See [versioned_blocks' documentation](https://github.com/devend711/versioned_blo
 
 	VersionedBlocks.base_uri = 'http://www.api.com'
 
-	it 'tests multiple API versions', versions:{from:2, to:4} do |example|
+	it 'tests multiple API versions', versions:{to:3} do |example|
 		...
 
 	context 'when the API version is between 2 and 4', versions:{from:2, to:4} do
