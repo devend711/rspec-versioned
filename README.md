@@ -23,7 +23,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+See [versioned_blocks' documentation](https://github.com/devend711/versioned_blocks) for info about how to set a base URI and define ranges for the versions you want to test. Simply pass those options to an RSpec example group or a specific example, like this:
+
+	it 'tests multiple API versions', versions:{from:2, to:4} do |example|
+		...
+
+	context 'when the API version is between 2 and 4', versions:{from:2, to:4} do
+		it 'tests multiple API versions' do |example|
+			...
 
 ## Contributing
 
