@@ -27,7 +27,7 @@ describe 'rspec/versioned' do
     end
 
     it 'can run an example and get a version number', versions:{only:1} do |ex|
-      expect(ex.version.number).to eq 1
+      expect(ex.version.uri).to include ex.version.number.to_s
     end
 
     it 'can run an example and get version numbers and URIs for a range of versions', versions:{to:3} do |ex|
