@@ -45,12 +45,18 @@ describe 'rspec/versioned' do
   context 'nested examples' do
     before :all do
       @outer_count = 1
+      @always_1 = 1
     end
 
     context 'nested', versions:{from:2, to:4} do
       it 'runs the correct amount of times' do |ex|
         @outer_count += 1
         expect(@outer_count).to eq ex.version.number
+      end
+
+      it 'only runs once for this one', versions:{only:1} do
+        expect(@always_1).to eq 1
+        @always_1 += 1
       end
 
       context 'another nested' do
