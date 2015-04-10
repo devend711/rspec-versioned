@@ -32,6 +32,9 @@ See [versioned_blocks' documentation](https://github.com/devend711/versioned_blo
 		it 'tests multiple API versions' do |example|
 			...
 
+	it 'tests multiple API versions with a different base URI', versions:{from:2, to:4, base_uri:'http://www.api2.com'} do |example|
+		...
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/rspec-versioned/fork )
