@@ -30,6 +30,10 @@ describe 'rspec/versioned' do
       expect(ex.version.uri).to include ex.version.number.to_s
     end
 
+    it 'can override base_uri', versions:{only:1, base_uri:'http://api2.com', override:true} do |ex|
+      expect(ex.version.uri).to include 'http://api2.com'
+    end
+
     it 'can run an example and get version numbers and URIs for a range of versions', versions:{to:3} do |ex|
       expect(ex.version.uri).to include('api.com')
       expect(ex.version.uri).to include(ex.version.number.to_s)

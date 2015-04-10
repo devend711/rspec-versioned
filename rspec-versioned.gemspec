@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Rspec::Versioned::VERSION
   spec.authors       = ["devend711"]
   spec.email         = ["devend711@gmail.com"]
-  spec.summary       = "Run tests over whatever API versions you want."
+  spec.summary       = "Run tests over whatever API versions you want"
   #spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/devend711/rspec-versioned"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

@@ -33,7 +33,7 @@ See [versioned_blocks' documentation](https://github.com/devend711/versioned_blo
 		it 'tests multiple API versions' do |example|
 			...
 
-	it 'tests a different base URI', versions:{only:1, base_uri:'http://www.api2.com'} do |example|
+	it 'tests a different base URI', versions:{only:1, base_uri:'http://www.api2.com', override:true} do |example|
 		...
 
 Examples returned from the block will respond to `version.number` and a `version.uri` where `version.uri` will be the string `"#{VersionedBlocks.base_uri}/v#{version.number}"`
