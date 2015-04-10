@@ -1,6 +1,11 @@
-# Rspec::Versioned
+# RSpec::Versioned
 
-TODO: Write a gem description
+Inspired by [RSpec::Retry|https://github.com/y310/rspec-retry], Rspec::Versioned allows RSpec examples and example groups to easily be repeated over different API versions using the [versioned_blocks|https://github.com/devend711/versioned_blocks] gem.
+
+	it 'tests multiple API versions', versions:{to:3} do |example|
+      expect(example.version.number).to be > 0
+      expect(example.version.uri).to include 'http://www.api.com'
+    end
 
 ## Installation
 
