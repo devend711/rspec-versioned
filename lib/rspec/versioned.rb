@@ -7,7 +7,7 @@ module RSpec
   class Versioned
     def self.apply
       RSpec.configure do |config|
-        config.add_setting :notify_version_number, :default => true
+        config.add_setting :notify_version_number, :default => false
         config.add_setting :clear_lets_on_failure, :default => true
 
         fetch_current_example = RSpec.respond_to?(:current_example) ?

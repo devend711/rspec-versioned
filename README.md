@@ -37,6 +37,10 @@ See [versioned_blocks' documentation](https://github.com/devend711/versioned_blo
 	it 'tests a different base URI', versions:{only:1, base_uri:'http://www.api2.com'} do |example|
 		...
 
+Rspec::Versioned can add the version it's currently testing to RSpec's output messages. Just add this line to your RSpec config:
+
+	config.notify_version_number = true
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/rspec-versioned/fork )
