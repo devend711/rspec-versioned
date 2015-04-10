@@ -76,7 +76,12 @@ module RSpec
 end
 
 class VersionInfoHolder
-  attr_reader :number, :uri
+  attr_reader :number
+
+  def uri
+    return @uri if !@uri.nil?
+    raise VersionedBlocksException, "Undefined URI!"
+  end
 
   def set(v_number, uri=nil)
     @number = v_number
