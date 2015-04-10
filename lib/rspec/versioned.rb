@@ -19,20 +19,21 @@ module RSpec
           example = fetch_current_example.call(self)
           example.new_version_info
 
+          run_example = Proc.new do |v, uri|
+            example.clear_exception
+            example.version.set(v, uri)
+            ex.run
+            RSpec.configuration.reporter.message("RSpec::Versioned testing /v#{v}") if notify_version_number
+          end
+
           if ex.metadata.has_key?(:versions)
             if ex.metadata[:versions][:base_uri] || (VersionedBlocks.base_uri && VersionedBlocks.base_uri!='') # we have a URI
               versioned_block(ex.metadata[:versions]) do |v, uri|
-                example.clear_exception
-                example.version.set(v, uri)
-                ex.run
-                RSpec.configuration.reporter.message("RSpec::Versioned testing /v#{v}") if notify_version_number
+                run_example.call v,uri
               end
             else # we don't have a URI
               versioned_block(ex.metadata[:versions]) do |v|
-                example.clear_exception
-                example.version.set(v)
-                ex.run
-                RSpec.configuration.reporter.message("RSpec::Versioned testing /v#{v}") if notify_version_number
+                run_example.call v
               end
             end
           else # didn't specify any versions...just run the test!
