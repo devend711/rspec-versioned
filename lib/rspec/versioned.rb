@@ -1,6 +1,5 @@
 require "rspec/versioned/version"
 require 'rspec/core'
-require 'rspec_ext/rspec_ext'
 require 'versioned_blocks'
 
 module RSpec
@@ -13,31 +12,29 @@ module RSpec
         fetch_current_example = RSpec.respond_to?(:current_example) ?
           proc { RSpec.current_example } : proc { |context| context.example }
 
-        config.around(:each) do |ex| # ex is a Procsy
-          notify_version_number = ex.metadata[:notify_version_number] || RSpec.configuration.notify_version_number
-
-          example = fetch_current_example.call(self)
-          example.new_version_info
+        config.around(:each) do |p| # example is a Proc extended with Procsy
+          notify_version_number = p.metadata[:notify_version_number] || RSpec.configuration.notify_version_number
 
           run_example = Proc.new do |v, uri|
-            example.clear_exception
-            example.version.set(v, uri)
-            ex.run
+            current_example = fetch_current_example.call(self)
+            current_example.clear_exceptions
+            p.metadata[:versioned] = {number:v, uri:uri}
+            p.run
             RSpec.configuration.reporter.message("RSpec::Versioned testing /v#{v}") if notify_version_number
           end
 
-          if ex.metadata.has_key?(:versions)
-            if ex.metadata[:versions][:base_uri] || (VersionedBlocks.base_uri && VersionedBlocks.base_uri!='') # we have a URI
-              versioned_block(ex.metadata[:versions]) do |v, uri|
+          if p.metadata.has_key?(:versions)
+            if p.metadata[:versions][:base_uri] || (VersionedBlocks.base_uri && VersionedBlocks.base_uri!='') # we have a URI
+              versioned_block(p.metadata[:versions]) do |v, uri|
                 run_example.call v,uri
               end
             else # we don't have a URI
-              versioned_block(ex.metadata[:versions]) do |v|
+              versioned_block(p.metadata[:versions]) do |v|
                 run_example.call v
               end
             end
           else # didn't specify any versions...just run the test!
-            ex.run
+            p.run
           end
           self.clear_lets if clear_lets
         end
@@ -46,41 +43,21 @@ module RSpec
   end
 end
 
-module HasVersionInfo
-  def new_version_info
-    @version_info = VersionInfoHolder.new
-  end
-
-  def version
-    @version_info
-  end
-
-  def clear_exception
-    @exception = nil
-  end
-end
-
 module RSpec
   module Core
     class Example
-      @version_info
+      def clear_exceptions
+        @exceptions = nil
+      end
 
-      include HasVersionInfo
+      def version
+        @metadata[:versioned]
+      end
+
+      def clear_exceptions
+        @exceptions = nil
+      end
     end
-  end
-end
-
-class VersionInfoHolder
-  attr_reader :number
-
-  def uri
-    return @uri if !@uri.nil?
-    raise VersionedBlocksException, "Undefined URI!"
-  end
-
-  def set(v_number, uri=nil)
-    @number = v_number
-    @uri = uri
   end
 end
 

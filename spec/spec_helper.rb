@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require_relative '../lib/rspec/versioned'
 
 RSpec.configure do |config|
