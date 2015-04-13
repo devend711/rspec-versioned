@@ -66,12 +66,6 @@ module RSpec
       @version_info
 
       include HasVersionInfo
-
-      class Procsy
-        @version_info
-
-        include HasVersionInfo
-      end
     end
   end
 end
